@@ -7,6 +7,10 @@
         <title>Hangman Game Revision</title>
         <link rel="icon" href="title.jpg" />
         <link rel="stylesheet" href="index.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
     </head>
     <body>
         <div class="container">
@@ -15,7 +19,12 @@
             <div id="catagoryName"></div>
             <div id="lettersholder"></div>
             <div id="img-container"></div>
+            <audio id="key-click" src="keyboard.mp3"></audio>
+            <audio id="key-hover" src="Woosh.mp3"></audio>
             <div id="keyboard"></div>
+            <button onclick="window.location.reload()" class="refresh-button">
+                Another game
+            </button>
         </div>
         <script src="hangman.js"></script>
     </body>
