@@ -1,10 +1,63 @@
-let catagories = [
-    ["baseball", "basketball", "swimming", "running", "frisbee"],
-    ["it", "alien", "jaws", "knives out"],
-    ["binghamton", "london", "beijing", "tokyo", "lima"],
+let wordsBank = [
+    ["baseball", "basketball", "swimming", "running", "hockey", "football"],
+    [
+        "joker",
+        "parasite",
+        "brokeback mountain",
+        "bohemian rhapsody",
+        "avengers",
+        "interstellar",
+    ],
+    [
+        "binghamton",
+        "london",
+        "beijing",
+        "tokyo",
+        "lima",
+        "new york",
+        "los angeles",
+    ],
+    [
+        "dan reynolds",
+        "ed sheeran",
+        "lady gaga",
+        "taylor swift",
+        "john lennon",
+        "jay chou",
+    ],
 ];
-let randCatagory = catagories[Math.floor(Math.random() * catagories.length)];
+let hintsBank = [
+    ["Yankees", "Hoops", "Water", "Road", "Ice", "Quarterback"],
+    [
+        "why so serious?",
+        "Human 'bugs' ",
+        "Love in Wyoming",
+        "Queen",
+        "Super heroes",
+        "Travel for new planet",
+    ],
+    [
+        "Upstate New York",
+        "English",
+        "China",
+        "Japan",
+        "Peru",
+        "U.S.A.",
+        "Hollywood",
+    ],
+    [
+        "Imagin dragons",
+        "Perfect",
+        "Freddie Mercury",
+        "Love story",
+        "A band named after bug",
+        "Taiwanese R&B",
+    ],
+];
+let randCatagory = wordsBank[Math.floor(Math.random() * wordsBank.length)];
 let randWord = randCatagory[Math.floor(Math.random() * randCatagory.length)];
+let randHint =
+    hintsBank[wordsBank.indexOf(randCatagory)][randCatagory.indexOf(randWord)];
 let myLives = 5;
 let showCatagoryName = document.getElementById("catagoryName");
 let showLives = document.getElementById("lives");
@@ -15,6 +68,11 @@ let counter = 0;
 let guesses = [];
 let correct = document.createElement("ul");
 let space = 0; // number of spaces in the word
+
+let clickAudio = document.getElementById("key-click");
+let hoverAudio = document.getElementById("key-hover");
+clickAudio.playbackRate = 2;
+hoverAudio.playbackRate = 2;
 
 let imgContainer = document.getElementById("img-container");
 let block1 = document.createElement("DIV");
@@ -38,12 +96,22 @@ imgContainer.appendChild(block3);
 imgContainer.appendChild(block4);
 imgContainer.appendChild(block5);
 
-if (randCatagory == catagories[0]) {
+let hintBox = document.createElement("DIV");
+hintBox.setAttribute("id", "hint");
+hintBox.innerHTML = "HINT";
+hintBox.onclick = hoverforTouch;
+let toolTip = document.createElement("DIV");
+toolTip.setAttribute("id", "tool-tip");
+toolTip.innerHTML = randHint;
+
+if (randCatagory == wordsBank[0]) {
     showCatagoryName.innerHTML = "This random catagory is about sports";
-} else if (randCatagory == catagories[1]) {
+} else if (randCatagory == wordsBank[1]) {
     showCatagoryName.innerHTML = "This random catagory is about films";
-} else if (randCatagory == catagories[2]) {
+} else if (randCatagory == wordsBank[2]) {
     showCatagoryName.innerHTML = "This random catagory is about cities";
+} else if (randCatagory == wordsBank[3]) {
+    showCatagoryName.innerHTML = "This random catagory is about singers";
 }
 
 let holderInit = function () {
@@ -68,6 +136,10 @@ let lifeStatus = function () {
     if (myLives < 1) {
         showLives.innerHTML = "Game Over!";
     }
+    if (myLives == 3 && imgContainer.nextSibling != hintBox) {
+        imgContainer.insertAdjacentElement("afterend", hintBox);
+        hintBox.appendChild(toolTip);
+    }
     for (let i = 0; i < guesses.length; i++) {
         if (counter + space === guesses.length) {
             showLives.innerHTML = "You Won!";
@@ -76,8 +148,13 @@ let lifeStatus = function () {
         }
     }
 };
+
 holderInit();
 lifeStatus();
+
+function hoverforTouch() {
+    alert("check out this hint below!");
+}
 
 const Keyboard = {
     elements: {
@@ -161,7 +238,13 @@ const Keyboard = {
 
             keyElement.textContent = key.toLowerCase();
 
+            //hovering sound effect
+            keyElement.addEventListener("mouseover", () => {
+                hoverAudio.play();
+            });
+
             keyElement.addEventListener("click", () => {
+                clickAudio.play();
                 this.properties.value += this.properties.capsLock
                     ? key.toUpperCase()
                     : key.toLowerCase();
