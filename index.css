@@ -62,6 +62,12 @@ body {
         width: 8vw;
         font-size: 3.5vw;
     }
+    .refresh-button {
+        font-size: 3vw;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 25%;
+    }
 }
 @media (min-width: 700px) and (max-width: 1200px) {
     .container h2 {
@@ -120,6 +126,12 @@ body {
         height: 6vw;
         width: 6vw;
         font-size: 2.5vw;
+    }
+    .refresh-button {
+        font-size: 2.5vw;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 32%;
     }
 }
 @media (min-width: 1200px) {
@@ -180,6 +192,11 @@ body {
         width: 4vw;
         font-size: 1.5vw;
     }
+    .refresh-button {
+        font-size: 2vw;
+        left: 80%;
+        bottom: 1%;
+    }
 }
 .container {
     text-align: center;
@@ -210,7 +227,6 @@ body {
     color: blue;
     font-weight: bold;
 }
-
 #img-container {
     border: solid black;
     border-radius: 0.5vw;
@@ -242,6 +258,47 @@ body {
 }
 .block-hidden {
     visibility: hidden;
+}
+#hint {
+    color: white;
+    background-color: red;
+    text-align: center;
+    border-radius: 1vw;
+    position: fixed;
+    left: -30%;
+    top: 30%;
+    width: 10vw;
+    height: 4vw;
+    font-size: 3vw;
+    padding: 1vw;
+    animation-name: move-in-steps;
+    animation-duration: 8s;
+}
+#hint:hover {
+    background-color: green;
+    cursor: pointer;
+    animation-play-state: paused;
+}
+#tool-tip {
+    background: black;
+    border-radius: 1vw;
+    padding: 1vw;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    visibility: hidden;
+}
+#hint:hover #tool-tip {
+    visibility: visible;
+}
+@keyframes move-in-steps {
+    0% {
+        left: 0;
+    }
+    100% {
+        left: 100%;
+    }
 }
 .keyboard {
     position: fixed;
@@ -281,4 +338,14 @@ body {
 .disable-key {
     pointer-events: none;
     background-color: red;
+}
+.refresh-button {
+    position: fixed;
+    background: white;
+    border-radius: 1vw;
+    font-family: fantasy;
+}
+.refresh-button:hover {
+    cursor: pointer;
+    background: green;
 }
